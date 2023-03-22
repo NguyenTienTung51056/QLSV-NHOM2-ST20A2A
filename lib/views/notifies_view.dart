@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uda_qlsv/abstract/loader.dart';
 import 'package:uda_qlsv/components/includes/app_bar_view.dart';
 import 'package:uda_qlsv/components/post/post_body_view.dart';
 import 'package:uda_qlsv/controllers/notifies_controller.dart';
@@ -25,14 +26,21 @@ class NotifiesView extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  Obx(() => c.list.isEmpty
-                      ? Container()
-                      : PostBodyView(
-                          posts: c.list,
-                          onClick: (Post post) {
-                            Get.toNamed(NotifyView.route, arguments: post);
-                          },
-                        ))
+                  Obx(() {
+                    if(c.empty.value) {
+                      return const Center(child: Text('Không có thông báo nào'));
+                    }
+                    if(c.loading.value) {
+                      return const Loader();
+                    }
+                    return PostBodyView(
+                      posts: c.list,
+                      onClick: (Post post) {
+                        Get.toNamed(NotifyView.route, arguments: post);
+                      },
+                    );
+                  }
+                  )
                 ],
               ),
             ),
