@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uda_qlsv/abstract/loader.dart';
 import 'package:uda_qlsv/components/includes/app_bar_view.dart';
 import 'package:uda_qlsv/components/post/post_body_view.dart';
 import 'package:uda_qlsv/controllers/documents_controller.dart';
@@ -26,18 +27,24 @@ class DocumentsView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  Obx(() => c.list.isEmpty
-                      ? Container(
-                    child: Center(
-                      child: Text("chưa có tài liệu nào"),
-                    ),
-                  )
-                      : PostBodyView(
-                          posts: c.list,
-                          onClick: (Post post) {
-                            Get.toNamed(DocumentView.route, arguments: post);
-                          },
-                        ))
+                  Obx(() {
+                    if (c.loading.value) {
+                      return const Loader();
+                    } else if (c.list.isEmpty) {
+                      return Container(
+                        child: const Center(
+                          child: Text("chưa có tài liệu nào"),
+                        ),
+                      );
+                    } else {
+                      return PostBodyView(
+                        posts: c.list,
+                        onClick: (Post post) {
+                          Get.toNamed(DocumentView.route, arguments: post);
+                        },
+                      );
+                    }
+                  })
                 ],
               ),
             ),
