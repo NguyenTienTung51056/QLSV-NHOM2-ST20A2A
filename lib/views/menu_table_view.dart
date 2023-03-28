@@ -144,7 +144,11 @@ class MenuTableView extends StatelessWidget {
                                         )
                                       ],
                                     ))
-                            : Container())
+                            : Container(
+                          child: Center(
+                            child: Text("Chưa có thời khóa biểu hiện tại"),
+                          ),
+                        ))
                       ],
                     ),
                   )
