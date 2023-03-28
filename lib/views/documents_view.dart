@@ -27,7 +27,11 @@ class DocumentsView extends StatelessWidget {
                 children: [
                   const SizedBox(height: 20),
                   Obx(() => c.list.isEmpty
-                      ? Container()
+                      ? Container(
+                    child: Center(
+                      child: Text("chưa có tài liệu nào"),
+                    ),
+                  )
                       : PostBodyView(
                           posts: c.list,
                           onClick: (Post post) {
