@@ -30,7 +30,11 @@ class InfoView extends StatelessWidget {
                     ? InfoTabContent()
                     : c.tuition.value != null
                         ? InfoMoneyView()
-                        : Container())
+                        : Container(
+                            child: const Center(
+                              child: Text("chưa có thông tin về học phí"),
+                            ),
+                          ))
               ],
             ),
           ),
